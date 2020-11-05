@@ -24,10 +24,10 @@ logger = logging.getLogger(__name__)
 def find_next_filename(filename):
     counter = 1
     path, name = os.path.split(filename)
-    new_name = '%s-%s' % (counter, name)
+    new_name = os.path.join(path, '%s-%s' % (counter, name))
     while os.path.exists(new_name):
         counter += 1
-        new_name = '%s-%s' % (counter, name)
+        new_name = os.path.join(path, '%s-%s' % (counter, name))
     return new_name
 
 
