@@ -80,7 +80,7 @@ def save_timing_data():
 
 def get_timings():
     if os.path.exists('timing_data.bin'):
-        with open('timing_data.bin') as fh:
+        with open('timing_data.bin', 'rb') as fh:
             return pickle.load(fh)
     else:
         return save_timing_data()
