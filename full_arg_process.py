@@ -15,7 +15,9 @@ logger = logging.getLogger(__name__)
 SPREADSHEET_SCRAPED_URL = 'https://spreadsheets.google.com/feeds/cells/1oyesB6iW5zYveN5C-qvwvxpMUCpwMOP7h6psa39mlsM/3/public/full?alt=json'
 SCRAPED_JMES_FILTER = 'feed.entry[?"gs$cell".col==`"1"`].content."$t"'
 
+
 def fetch_images():
+    logger.info('Fetching source images, this could take a while.')
     sheet_json = requests.get(SPREADSHEET_SCRAPED_URL).json()
     image_urls = jmespath.search(SCRAPED_JMES_FILTER, sheet_json)[1:]
     image_urls = [x for x in image_urls if x.startswith('http')]
@@ -60,6 +62,7 @@ def get_timing_array(filename):
 
 
 def get_all_timings():
+    logger.info('Generating timing data from images, this will take some time.')
     pool = Pool(4)
     filenames = os.listdir('imgs')
     res = filter(lambda x: x is not None, pool.map(get_timing_array, filenames))
@@ -123,6 +126,10 @@ def main():
         159: 'x',
         177: 'g',
         197: 'V',
+        547: 'U',
+        567: 'z',
+        639: 'B',
+        2589: 'F',
     })
 
 
